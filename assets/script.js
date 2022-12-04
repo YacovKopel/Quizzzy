@@ -21,21 +21,36 @@ var quiz=[{
     question: "How many states does the United States have?",
     correctanswer: "50",
     options: ["40", "13", "50", "3"]
-    }
+    },
     {
     question: "What is the lifespan of killer whales?",
-    answer: "10-45 years",
-    options: ["40", "13", "50", "3"]
+    correctanswer: "10-45 years",
+    options: ["20-30 years", "5-10 years", "30-60 years", "10-45 years"]
     },
     {
-    question: "How tall is Mount Everest",
-    answer: "29,032 ft.",
-    options: ["40", "13", "50", "3"]
+    question: "How tall is Mount Everest?",
+    correctanswer: "29,032 ft.",
+    options: ["29,032 ft.", "28,032 ft.", "25,032 ft.", "30,032 ft."]
     },
     {
-    question: "Which country invented the Hamburger",
-    answer: "Germany",
-    options: ["40", "13", "50", "3"]
+    question: "Which country invented the Hamburger?",
+    correctanswer: "Germany",
+    options: ["Austria", "Germany", "Sweden", "Canada"]
+    },
+    {
+    question: "Which is the only planet to spin clockwise?",
+    correctanswer: "Venus",
+    options: ["Venus", "Mars", "Jupiter", "They all spin clockwise"]
+    },
+    {
+    question: "Which letter is not found in any of the states in the U.S.?",
+    correctanswer: "Q",
+    options: ["F", "Z", "Q", "X"]
+    },
+    {
+    question: "How part of the body cannot heal itelf?",
+    correctanswer: "Teeth",
+    options: ["Liver", "Pancreas", "Skin", "Teeth"]
     }
 ]
 
@@ -129,13 +144,13 @@ todoList.addEventListener('click', function(event){
             wrongOrRight.appendChild(rOw);
             points++;
             score.textContent="Score: " + points;
-            setTimeout(() => { rendernextQuestion(); rOw.textContent=""; }, 3000);
+            setTimeout(() => { rendernextQuestion(); rOw.textContent=""; }, 2000);
         }else{
             var rOw = document.createElement("h3");
             rOw.textContent="Wrong!";
             wrongOrRight.appendChild(rOw);
             counter= counter-4;
-            setTimeout(() => { rendernextQuestion(); rOw.textContent="";}, 3000);
+            setTimeout(() => { rendernextQuestion(); rOw.textContent="";}, 2000);
             
         }
         
