@@ -7,6 +7,8 @@ var header = document.querySelector("header");
 var question
 var correctanswer
 var options
+var points=0
+var points=document.querySelector(".points");
 var questionIndex=0
 
 var quiz=[{
@@ -32,11 +34,10 @@ var quiz=[{
     // answer: "Germany",
     // }
 ]
+var timer= document.querySelector(".timer")
+var counter = 60;
 // sets countdown timer to 60 seconds 
-function startCountdown (seconds) {
-    let counter = seconds;
-    var timer= document.querySelector(".timer")
-
+function startCountdown () {
     const interval = setInterval(() => {
         counter--;
 
@@ -52,9 +53,9 @@ function startCountdown (seconds) {
 // starts countdown timer on Start click
 startBtn.addEventListener('click', function(event){
     event.preventDefault();
-    startCountdown(60);
+    startCountdown();
     startQuestion();
-    score.innerHTML="Score:0";
+    score.innerHTML='Score: <span class="points">0 </span>';
 });
 
 startQuestion= function() {
@@ -108,10 +109,13 @@ todoList.addEventListener('click', function(event){
             var rOw = document.createElement("h3");
             rOw.textContent="Correct!";
             wrongOrRight.appendChild(rOw);
+            points++;
+            score.textContent="Score: " + points;
         }else{
             var rOw = document.createElement("h3");
             rOw.textContent="Wrong!";
             wrongOrRight.appendChild(rOw);
+            counter= counter-4;
         }
         
     }
