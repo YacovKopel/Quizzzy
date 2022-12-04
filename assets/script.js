@@ -4,12 +4,12 @@ var startBtn= document.querySelector(".startbtn");
 var timer= document.querySelector(".timer");
 var score = document.getElementById("highscore");
 var header = document.querySelector("header");
-var question
-var correctanswer
-var options
-var instructions= document.querySelector(".instructions")
-var points=0
+var instructions= document.querySelector(".instructions");
 var points=document.querySelector(".points");
+var timer= document.querySelector(".timer");
+var questionTitle= document.querySelector(".ques");
+var counter = 60;
+var points=0;
 var questionIndex=0
 
 var quiz=[{
@@ -22,21 +22,23 @@ var quiz=[{
     correctanswer: "50",
     options: ["40", "13", "50", "3"]
     }
-    // {
-    // question: "What is the lifespan of killer whales?",
-    // answer: "10-45 years",
-    // },
-    // {
-    // question: "How tall is Mount Everest",
-    // answer: "29,032 ft.",
-    // },
-    // {
-    // question: "Which country invented the Hamburger",
-    // answer: "Germany",
-    // }
+    {
+    question: "What is the lifespan of killer whales?",
+    answer: "10-45 years",
+    options: ["40", "13", "50", "3"]
+    },
+    {
+    question: "How tall is Mount Everest",
+    answer: "29,032 ft.",
+    options: ["40", "13", "50", "3"]
+    },
+    {
+    question: "Which country invented the Hamburger",
+    answer: "Germany",
+    options: ["40", "13", "50", "3"]
+    }
 ]
-var timer= document.querySelector(".timer")
-var counter = 60;
+
 // sets countdown timer to 60 seconds 
 function startCountdown () {
     const interval = setInterval(() => {
@@ -61,9 +63,23 @@ startBtn.addEventListener('click', function(event){
 });
 
 startQuestion= function() {
-document.querySelector(".ques").textContent= quiz[0].question;
+questionTitle.textContent= quiz[questionIndex].question;
 var option_length =4
 var op = quiz[0].options;
+for (var i = 0; i < option_length; i++) {
+    var li = document.createElement("li");
+    li.textContent=op[i];
+    todoList.appendChild(li);
+    }
+};
+
+rendernextQuestion= function(){
+questionIndex++;
+questionTitle.textContent='';
+questionTitle.textContent= quiz[questionIndex].question;
+var option_length =4
+var op = quiz[questionIndex].options;
+todoList.textContent='';
 for (var i = 0; i < option_length; i++) {
     var li = document.createElement("li");
     li.textContent=op[i];
@@ -113,12 +129,16 @@ todoList.addEventListener('click', function(event){
             wrongOrRight.appendChild(rOw);
             points++;
             score.textContent="Score: " + points;
+            setTimeout(() => { rendernextQuestion(); rOw.textContent=""; }, 3000);
         }else{
             var rOw = document.createElement("h3");
             rOw.textContent="Wrong!";
             wrongOrRight.appendChild(rOw);
             counter= counter-4;
+            setTimeout(() => { rendernextQuestion(); rOw.textContent="";}, 3000);
+            
         }
         
     }
 });
+
