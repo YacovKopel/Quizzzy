@@ -24,7 +24,6 @@ li{
 
 }
 
-/* li:nth-child(odd) { background: rgb(76, 201, 51)}; */
 #todo-list{
     display: flex;
     align-items: center;
@@ -54,4 +53,7 @@ li{
     font-size: xx-large;
     width: 250px;
     height: 100px;
+}
+hidden{
+    display: none;
 }

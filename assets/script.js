@@ -1,9 +1,13 @@
-var display = document.getElementById("section");
+var display = document.querySelector("section");
 var todoList = document.querySelector("#todo-list");
-var startBtn= document.querySelector(".startbtn")
+var startBtn= document.querySelector(".startbtn");
+var timer= document.querySelector(".timer");
+var score = document.getElementById("highscore");
+var header = document.querySelector("header");
 var question
 var correctanswer
 var options
+var questionIndex=0
 
 var quiz=[{
     question: "What is the capital of Los Angeles?",
@@ -28,7 +32,7 @@ var quiz=[{
     // answer: "Germany",
     // }
 ]
-
+// sets countdown timer to 60 seconds 
 function startCountdown (seconds) {
     let counter = seconds;
     var timer= document.querySelector(".timer")
@@ -44,49 +48,71 @@ function startCountdown (seconds) {
     }, 1000);
 
     };
-
-var timer= document.querySelector(".timer")
 
 // starts countdown timer on Start click
 startBtn.addEventListener('click', function(event){
     event.preventDefault();
     startCountdown(60);
-   
+    startQuestion();
+    score.innerHTML="Score:0";
+});
 
-})
-
-
-
-document.querySelector(".ques").textContent= quiz[1].question;
-
-
+startQuestion= function() {
+document.querySelector(".ques").textContent= quiz[0].question;
 var option_length =4
-
-for (let i = 0; i < 1; i++) {
-    var op = quiz[i].options;
-};
-
+var op = quiz[0].options;
 for (var i = 0; i < option_length; i++) {
     var li = document.createElement("li");
     li.textContent=op[i];
     todoList.appendChild(li);
     }
+};
 
+// let li= document.getElementById("<li>")
+// li.addEventListener('click', function(event){
+//     event.preventDefault();
+    
+// });
+// score.textContent('h2>Score: <span class="win">0 </span> </h2>');
 
-// sets timer to 60 seconds 
-var timer= document.querySelector(".timer")
-function startCountdown (seconds) {
-    let counter = seconds;
-    var timer= document.querySelector(".timer")
+    // if (quiz[0].correctanswer==quiz[0].options)
 
-    const interval = setInterval(() => {
-        counter--;
+// init()
+// highscore if there is  if not set to 0
+// instructions on page and start button
 
-        if (counter < 0 ) {
-        clearInterval(interval);
-        timer.textContent=("TIMES UP!");
-        } else{
-            timer.textContent="Timer: "+ counter};
-    }, 1000);
+// when start clicked
+// timer starts counting down from 60
+// questions appear on screen with correct answer options.
 
-    };
+// if (correctanswer){
+//     change background color of LI to Green for 3 seconds
+//     add 1 points to score
+//     move to next question
+// else if (!correctanswer)
+//     change background to red for 3 seconds
+//     take away 5 seconds from timer.
+//     move on to next question
+
+// if all questions are asked || or time is 0:
+//     form to put inital and save score.
+//     if highscore add to highscore h2.
+//     else store in local stoarage
+// reset game
+// }
+
+var wrongOrRight= document.getElementById("quizsec");
+todoList.addEventListener('click', function(event){
+    if (event.target.matches("li")){
+        if (event.target.textContent===quiz[questionIndex].correctanswer){
+            var rOw = document.createElement("h3");
+            rOw.textContent="Correct!";
+            wrongOrRight.appendChild(rOw);
+        }else{
+            var rOw = document.createElement("h3");
+            rOw.textContent="Wrong!";
+            wrongOrRight.appendChild(rOw);
+        }
+        
+    }
+});
