@@ -7,6 +7,7 @@ var header = document.querySelector("header");
 var question
 var correctanswer
 var options
+var instructions= document.querySelector(".instructions")
 var points=0
 var points=document.querySelector(".points");
 var questionIndex=0
@@ -53,6 +54,7 @@ function startCountdown () {
 // starts countdown timer on Start click
 startBtn.addEventListener('click', function(event){
     event.preventDefault();
+    instructions.style.display = "none";
     startCountdown();
     startQuestion();
     score.innerHTML='Score: <span class="points">0 </span>';
