@@ -54,6 +54,7 @@ li{
     width: 250px;
     height: 100px;
 }
-.hidden{
+
+.saveScore{
     display: none;
 }

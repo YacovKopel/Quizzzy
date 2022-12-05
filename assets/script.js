@@ -8,9 +8,17 @@ var instructions= document.querySelector(".instructions");
 var points=document.querySelector(".points");
 var timer= document.querySelector(".timer");
 var questionTitle= document.querySelector(".ques");
+var logScore= document.querySelector(".saveScore");
+var quizsec =document.querySelector("#quizsec")
+var userName=document.querySelector("#name");
+var userScore =document.querySelector("#userScore");
+var submitScore= document.querySelector("#submit");
+var displayHS= document.querySelector("#displayHS");
 var counter = 60;
 var points=0;
 var questionIndex=0
+var questionCount=0
+
 
 var quiz=[{
     question: "What is the capital of Los Angeles?",
@@ -54,14 +62,19 @@ var quiz=[{
     }
 ]
 
+
+
+timer.textContent="Timer: "+ counter;
 // sets countdown timer to 60 seconds 
 function startCountdown () {
+    
     const interval = setInterval(() => {
         counter--;
 
-        if (counter < 0 ) {
+        if ((counter < 0) || (questionCount>=8)) {
         clearInterval(interval);
         timer.textContent=("TIMES UP!");
+        endOfGame();
         } else{
             timer.textContent="Timer: "+ counter};
     }, 1000);
@@ -102,31 +115,11 @@ for (var i = 0; i < option_length; i++) {
     }
 };
 
-// let li= document.getElementById("<li>")
-// li.addEventListener('click', function(event){
-//     event.preventDefault();
-    
-// });
-// score.textContent('h2>Score: <span class="win">0 </span> </h2>');
-
-    // if (quiz[0].correctanswer==quiz[0].options)
 
 // init()
 // highscore if there is  if not set to 0
 // instructions on page and start button
 
-// when start clicked
-// timer starts counting down from 60
-// questions appear on screen with correct answer options.
-
-// if (correctanswer){
-//     change background color of LI to Green for 3 seconds
-//     add 1 points to score
-//     move to next question
-// else if (!correctanswer)
-//     change background to red for 3 seconds
-//     take away 5 seconds from timer.
-//     move on to next question
 
 // if all questions are asked || or time is 0:
 //     form to put inital and save score.
@@ -135,8 +128,21 @@ for (var i = 0; i < option_length; i++) {
 // reset game
 // }
 
+endOfGame = function(){
+        quizsec.style.display ="none";
+        todoList.style.display = "none";
+        logScore.style.display = "block";
+
+
+        userScore.value=points;
+        console.log(userScore);
+    }
+
+
+
 var wrongOrRight= document.getElementById("quizsec");
 todoList.addEventListener('click', function(event){
+    questionCount++;
     if (event.target.matches("li")){
         if (event.target.textContent===quiz[questionIndex].correctanswer){
             var rOw = document.createElement("h3");
@@ -144,16 +150,60 @@ todoList.addEventListener('click', function(event){
             wrongOrRight.appendChild(rOw);
             points++;
             score.textContent="Score: " + points;
-            setTimeout(() => { rendernextQuestion(); rOw.textContent=""; }, 2000);
+            setTimeout(() => { rendernextQuestion(); rOw.textContent=""; }, 1000);
         }else{
             var rOw = document.createElement("h3");
             rOw.textContent="Wrong!";
             wrongOrRight.appendChild(rOw);
             counter= counter-4;
-            setTimeout(() => { rendernextQuestion(); rOw.textContent="";}, 2000);
+            setTimeout(() => { rendernextQuestion(); rOw.textContent="";}, 1000);
             
         }
         
     }
 });
 
+submitScore.addEventListener("click", function(e){
+    var allUsers= localStorage.getItem("UserInfo");
+    var userInfo={
+        name: userName.value,
+        score: userScore.value
+    }
+    var usersarr=[]
+    for (let i = 0; i < allUsers.length; i++) {
+        usersarr.push(allUsers[i]);
+    }
+    usersarr.push(userInfo)
+    // var highScoreinfo=JSON.parse(localStorage.getItem("UserInfo"));
+    // allUsers.push(highScoreinfo);
+    // localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+    // var heading =document.createElement("h2");
+    // heading.textContent= "Score submitted";
+    // displayHS.append(heading);
+    for (let i = 0; i < usersarr.length; i++) {
+        console.log(highScoreinfo);
+        var storedScore= document.createElement("h3");
+        storedScore.textContent= highScoreinfo.score;
+        displayHS.append(storedScore);
+        var storedName=document.createElement("h3");
+        storedName.textContent= highScoreinfo.name;
+        displayHS.append(storedName);
+    }
+    
+
+
+
+})
+
+
+// `will log data into storage`
+// function storeTodos() {
+//     // TODO: Describe the purpose of the following line of code.
+//     localStorage.setItem("todos", JSON.stringify(todos));
+
+
+// get from local storage and upadte high score
+// var storedTodos = JSON.parse(localStorage.getItem("todos"));
+// // TODO: Describe the functionality of the following `if` statement.
+// if (storedTodos !== null) {
+//   todos = storedTodos;

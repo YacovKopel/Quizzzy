@@ -10,7 +10,7 @@
 
 <header>
     <p id="highscore">Highscore:</p>
-    <h3 class="timer">Time:0</h3>
+    <h3 class="timer">Time:</h3>
 </header>
 <body>
     <section class="instructions">
@@ -26,6 +26,19 @@
     <section id="quizsec">
         <h2 class="ques"></h2>
         <ul id="todo-list"></ul>
+    </section>
+    <section class="saveScore">
+        <h2>Please fill out your name to save your score.</h2>
+        <form>
+        <label>Name:</label>
+        <input id="name" type="text" name="fname" placeholder="name" required>
+        <label>Score:</label>
+        <input id="userScore" type="text" name= "newscore" required>
+        <button id="submit" type="button">Submit</button>
+        </form>
+    </section>
+    <section id="displayHS">
+
     </section>
     
     <script src="assets/script.js"></script>
