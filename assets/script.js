@@ -118,9 +118,7 @@ for (var i = 0; i < option_length; i++) {
 };
 
 
-// init()
-// highscore if there is  if not set to 0
-// instructions on page and start button
+
 
 var wrongOrRight= document.getElementById("quizsec");
 todoList.addEventListener('click', function(event){
@@ -154,16 +152,6 @@ endOfGame = function(){
 
 
 
-
-
-// submitUserScoreandName = function(){
-//     localStorage.setItem("UserInfo", JSON.stringify(userInfo));
-// }
-
-// var highScoreinfo=JSON.parse(localStorage.getItem("UserInfo"));
-// displayHighscore= function(){
-//     var highScoreinfo = []||JSON.parse(localStorage.getItem("UsersInfo"));
-// }
 var highScoreinfo = JSON.parse(localStorage.getItem("UsersInfo"))||[];
 submitScore.addEventListener("click", function(){
    var newUserInfo={
@@ -180,98 +168,56 @@ submitScore.addEventListener("click", function(){
     var hslist=document.createElement("li");
     hslist.textContent= (newUserInfo.name+ "-"+ newUserInfo.score);
     hsList.appendChild(hslist);
-
-    var lengthlist=(highScoreinfo.length-1)
+    allscores=[]
+    allUsers=[]
+    var lengthlist=(highScoreinfo.length)
     for (let i = 0; i < lengthlist; i++) {
-       
-        console.log(highScoreinfo[i].score);
-        console.log(highScoreinfo[i].name);
-        console.log(userScore.value);
-        console.log(userName.value);
-        // var hsName=(highScoreinfo[i].name);
-        // var hsScore=(highScoreinfo[i].score);
-        console.log(highScoreinfo[(highScoreinfo.length-2)].score)
-        console.log(highScoreinfo[(highScoreinfo.length-2)].name)
-        console.log(newUserInfo.score)
-        console.log(newUserInfo.name)
-
-        if (newUserInfo.score > (highScoreinfo[(highScoreinfo.length-2)].score)){
-            console.log("new hs");
-            hsscore.textContent="High Score by " + userName.value + " - " + userScore.value + " points"
+        allscores.push(highScoreinfo[i].score)
+        allUsers.push(highScoreinfo[i].name)
+    
         
-        }else{
-            console.log("didnt beat highscore")
-        }
+
+
+
+
+
+        
+       
+        // console.log(highScoreinfo[i].score);
+        // console.log(highScoreinfo[i].name);
+        // console.log(userScore.value);
+        // console.log(userName.value);
+        // // var hsName=(highScoreinfo[i].name);
+        // // var hsScore=(highScoreinfo[i].score);
+        // console.log(highScoreinfo[(highScoreinfo.length-2)].score)
+        // console.log(highScoreinfo[(highScoreinfo.length-2)].name)
+        // console.log(newUserInfo.score)
+        // console.log(newUserInfo.name)
+
+        // if (newUserInfo.score > (highScoreinfo[(highScoreinfo.length-2)].score)){
+        //     console.log("new hs");
+        //     hsscore.textContent="High Score by " + userName.value + " - " + userScore.value + " points"
+        
+        // }else{
+        //     console.log("didnt beat highscore")
+        // }
 
         // hsscore.textContent="High Score by: " + hsName + " - " + hsScore + " points";
         
         // if (userScore.value <= highScoreinfo[i].score)
 
-        // var hslist=document.createElement("li");
-        // hslist.textContent= (highScoreinfo[i].name - highScoreinfo[i].score);
-        // hsList.append(hslist);
-   
     }
+var max = allscores.reduce((a, b) => Math.max(a, b), -Infinity);
+console.log(allUsers)
+console.log(allscores)
+console.log(max)
 
 });
 
-    // if (highScoreinfo.length > 0){
-    //     hsscore.textContent=   highScoreinfo[i].score
-    // }
-    
-
 // highScoreIndex=0
-// checkHS= function(highScoreinfo){
-// if (highScoreinfo[highScoreIndex]){
-//     var newHS= ("High Score by " + highScoreinfo[highScoreIndex].name + " with " + highScoreinfo[highScoreIndex].score)
-//     hsscore.textContent=newHS};
-// }
-// checkHS(highScoreIndex);
 
 timer.textContent="Timer: "+ counter;
-        // if (highScoreinfo == undefined) {
-        //     hsscore.textContent="High Score by " + userInfo.name + " with " + userInfo.score+ " points"}
-        // }
-        
-    // if (highScoreinfo !== null) {
-//         userInfo = highScoreinfo;
-//     }
-//     if (userInfo.score>highScoreinfo.score){
-//         hsscore.textContent= "High Score by " + userInfo.name + " with " + userInfo.score+ " points"}
-//     else{ 
-//         hsscore.textContent= "High Score by " + highScoreinfo.name + " with " +highScoreinfo.score
-    
-// }    
-    // hsscore.textContent="Y Score: " + userInfo.score + " points -  " + userInfo.name;
-    
-    // var score = 0;
-    // var highscore = localStorage.getItem("highscore");
-    
-    // if(highscore !== null){
-    //     if (score > highscore) {
-    //         localStorage.setItem("highscore", score);      
-    //     }
-    // }
-    // else{``
-    //     localStorage.setItem("highscore", score);
-    // }
 
-    
-
-// var storedTodos = JSON.parse(localStorage.getItem("todos"));
-// // TODO: Describe the functionality of the following `if` statement.
-// if (storedTodos !== null) {
-//   todos = storedTodos;
-
-    // var usersarr=[]
-    // for (let i = 0; i < allUsers.length; i++) {
-    //     usersarr.push(allUsers[i]);
-    // }
-    // usersarr.push(userInfo)
-
-    // var highScoreinfo=JSON.parse(localStorage.getItem("UserInfo"));
-    // allUsers.push(highScoreinfo);
-    
     
     // for (let i = 0; i < usersarr.length; i++) {
     //     console.log(highScoreinfo);
@@ -283,18 +229,3 @@ timer.textContent="Timer: "+ counter;
     //     displayHS.append(storedName);
     // }
     
-
-
-
-
-// `will log data into storage`
-// function storeTodos() {
-//     // TODO: Describe the purpose of the following line of code.
-//     localStorage.setItem("todos", JSON.stringify(todos));
-
-
-// get from local storage and upadte high score
-// var storedTodos = JSON.parse(localStorage.getItem("todos"));
-// // TODO: Describe the functionality of the following `if` statement.
-// if (storedTodos !== null) {
-//   todos = storedTodos;
