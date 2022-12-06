@@ -1,8 +1,7 @@
-var display = document.querySelector("section");
 var todoList = document.querySelector("#todo-list");
 var startBtn= document.querySelector(".startbtn");
 var timer= document.querySelector(".timer");
-var score = document.getElementById("highscore");
+var hsscore = document.getElementById("highscore");
 var header = document.querySelector("header");
 var instructions= document.querySelector(".instructions");
 var points=document.querySelector(".points");
@@ -14,6 +13,8 @@ var userName=document.querySelector("#name");
 var userScore =document.querySelector("#userScore");
 var submitScore= document.querySelector("#submit");
 var displayHS= document.querySelector("#displayHS");
+var playerScore = document.querySelector("#playerScore")
+var hsList=document.querySelector("#hsList");
 var counter = 60;
 var points=0;
 var questionIndex=0
@@ -63,8 +64,6 @@ var quiz=[{
 ]
 
 
-
-timer.textContent="Timer: "+ counter;
 // sets countdown timer to 60 seconds 
 function startCountdown () {
     
@@ -81,13 +80,16 @@ function startCountdown () {
 
     };
 
+
 // starts countdown timer on Start click
 startBtn.addEventListener('click', function(event){
     event.preventDefault();
+    playerScore.style.display= "flex"
     instructions.style.display = "none";
     startCountdown();
     startQuestion();
-    score.innerHTML='Score: <span class="points">0 </span>';
+    playerScore.innerHTML='Score: <span class="points">0 </span>';
+
 });
 
 startQuestion= function() {
@@ -120,26 +122,6 @@ for (var i = 0; i < option_length; i++) {
 // highscore if there is  if not set to 0
 // instructions on page and start button
 
-
-// if all questions are asked || or time is 0:
-//     form to put inital and save score.
-//     if highscore add to highscore h2.
-//     else store in local stoarage
-// reset game
-// }
-
-endOfGame = function(){
-        quizsec.style.display ="none";
-        todoList.style.display = "none";
-        logScore.style.display = "block";
-
-
-        userScore.value=points;
-        console.log(userScore);
-    }
-
-
-
 var wrongOrRight= document.getElementById("quizsec");
 todoList.addEventListener('click', function(event){
     questionCount++;
@@ -149,7 +131,7 @@ todoList.addEventListener('click', function(event){
             rOw.textContent="Correct!";
             wrongOrRight.appendChild(rOw);
             points++;
-            score.textContent="Score: " + points;
+            playerScore.textContent="Score: " + points;
             setTimeout(() => { rendernextQuestion(); rOw.textContent=""; }, 1000);
         }else{
             var rOw = document.createElement("h3");
@@ -163,37 +145,146 @@ todoList.addEventListener('click', function(event){
     }
 });
 
-submitScore.addEventListener("click", function(e){
-    var allUsers= localStorage.getItem("UserInfo");
-    var userInfo={
-        name: userName.value,
-        score: userScore.value
+endOfGame = function(){
+    quizsec.style.display ="none";
+    todoList.style.display = "none";
+    logScore.style.display = "block";
+    userScore.value=points;
+};
+
+
+
+
+
+// submitUserScoreandName = function(){
+//     localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+// }
+
+// var highScoreinfo=JSON.parse(localStorage.getItem("UserInfo"));
+// displayHighscore= function(){
+//     var highScoreinfo = []||JSON.parse(localStorage.getItem("UsersInfo"));
+// }
+var highScoreinfo = JSON.parse(localStorage.getItem("UsersInfo"))||[];
+submitScore.addEventListener("click", function(){
+   var newUserInfo={
+    name: userName.value,
+    score: userScore.value
     }
-    var usersarr=[]
-    for (let i = 0; i < allUsers.length; i++) {
-        usersarr.push(allUsers[i]);
+
+    highScoreinfo.push(newUserInfo)
+    localStorage.setItem("UsersInfo", JSON.stringify(highScoreinfo));
+    var heading =document.createElement("h2");
+    heading.textContent= "Score submitted";
+    displayHS.append(heading);
+
+    var hslist=document.createElement("li");
+    hslist.textContent= (newUserInfo.name+ "-"+ newUserInfo.score);
+    hsList.appendChild(hslist);
+
+    var lengthlist=(highScoreinfo.length-1)
+    for (let i = 0; i < lengthlist; i++) {
+       
+        console.log(highScoreinfo[i].score);
+        console.log(highScoreinfo[i].name);
+        console.log(userScore.value);
+        console.log(userName.value);
+        // var hsName=(highScoreinfo[i].name);
+        // var hsScore=(highScoreinfo[i].score);
+        console.log(highScoreinfo[(highScoreinfo.length-2)].score)
+        console.log(highScoreinfo[(highScoreinfo.length-2)].name)
+        console.log(newUserInfo.score)
+        console.log(newUserInfo.name)
+
+        if (newUserInfo.score > (highScoreinfo[(highScoreinfo.length-2)].score)){
+            console.log("new hs");
+            hsscore.textContent="High Score by " + userName.value + " - " + userScore.value + " points"
+        
+        }else{
+            console.log("didnt beat highscore")
+        }
+
+        // hsscore.textContent="High Score by: " + hsName + " - " + hsScore + " points";
+        
+        // if (userScore.value <= highScoreinfo[i].score)
+
+        // var hslist=document.createElement("li");
+        // hslist.textContent= (highScoreinfo[i].name - highScoreinfo[i].score);
+        // hsList.append(hslist);
+   
     }
-    usersarr.push(userInfo)
+
+});
+
+    // if (highScoreinfo.length > 0){
+    //     hsscore.textContent=   highScoreinfo[i].score
+    // }
+    
+
+// highScoreIndex=0
+// checkHS= function(highScoreinfo){
+// if (highScoreinfo[highScoreIndex]){
+//     var newHS= ("High Score by " + highScoreinfo[highScoreIndex].name + " with " + highScoreinfo[highScoreIndex].score)
+//     hsscore.textContent=newHS};
+// }
+// checkHS(highScoreIndex);
+
+timer.textContent="Timer: "+ counter;
+        // if (highScoreinfo == undefined) {
+        //     hsscore.textContent="High Score by " + userInfo.name + " with " + userInfo.score+ " points"}
+        // }
+        
+    // if (highScoreinfo !== null) {
+//         userInfo = highScoreinfo;
+//     }
+//     if (userInfo.score>highScoreinfo.score){
+//         hsscore.textContent= "High Score by " + userInfo.name + " with " + userInfo.score+ " points"}
+//     else{ 
+//         hsscore.textContent= "High Score by " + highScoreinfo.name + " with " +highScoreinfo.score
+    
+// }    
+    // hsscore.textContent="Y Score: " + userInfo.score + " points -  " + userInfo.name;
+    
+    // var score = 0;
+    // var highscore = localStorage.getItem("highscore");
+    
+    // if(highscore !== null){
+    //     if (score > highscore) {
+    //         localStorage.setItem("highscore", score);      
+    //     }
+    // }
+    // else{``
+    //     localStorage.setItem("highscore", score);
+    // }
+
+    
+
+// var storedTodos = JSON.parse(localStorage.getItem("todos"));
+// // TODO: Describe the functionality of the following `if` statement.
+// if (storedTodos !== null) {
+//   todos = storedTodos;
+
+    // var usersarr=[]
+    // for (let i = 0; i < allUsers.length; i++) {
+    //     usersarr.push(allUsers[i]);
+    // }
+    // usersarr.push(userInfo)
+
     // var highScoreinfo=JSON.parse(localStorage.getItem("UserInfo"));
     // allUsers.push(highScoreinfo);
-    // localStorage.setItem("UserInfo", JSON.stringify(userInfo));
-    // var heading =document.createElement("h2");
-    // heading.textContent= "Score submitted";
-    // displayHS.append(heading);
-    for (let i = 0; i < usersarr.length; i++) {
-        console.log(highScoreinfo);
-        var storedScore= document.createElement("h3");
-        storedScore.textContent= highScoreinfo.score;
-        displayHS.append(storedScore);
-        var storedName=document.createElement("h3");
-        storedName.textContent= highScoreinfo.name;
-        displayHS.append(storedName);
-    }
+    
+    
+    // for (let i = 0; i < usersarr.length; i++) {
+    //     console.log(highScoreinfo);
+    //     var storedScore= document.createElement("h3");
+    //     storedScore.textContent= highScoreinfo.score;
+    //     displayHS.append(storedScore);
+    //     var storedName=document.createElement("h3");
+    //     storedName.textContent= highScoreinfo.name;
+    //     displayHS.append(storedName);
+    // }
     
 
 
-
-})
 
 
 // `will log data into storage`

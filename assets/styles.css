@@ -43,11 +43,17 @@ li{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-};
-
-#todo-list:active {
-    box-shadow: 2px 2px 5px #fc894d;
-}
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #999;
+  }
+  
+  #todo-list li:hover {background-color: #0e0f0e}
+  
+  #todo-list li:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
 
 .startbtn{
     font-size: xx-large;
@@ -57,4 +63,18 @@ li{
 
 .saveScore{
     display: none;
+}
+#playerScore{
+    display: none;
+}
+
+#hsList{
+    color: #731b37;
+    display: flex;
+    background-color: black;
+    list-style-type: none;
+    flex-direction: column;
+    align-items: center;
+    margin: auto, 80px;
+
 }
